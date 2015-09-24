@@ -10,10 +10,9 @@ class Figure:
         if direct == 2:
             self.y += 1
         if direct == 3:
-            self.y -= 1
-        if direct == 4:
             self.x -= 1
-
+        if direct == 4:
+            self.y -= 1
 
 figure_white = Figure(4, 0)
 figure_black = Figure(4, 8)
