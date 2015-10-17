@@ -11,6 +11,8 @@ step_first = 1
 step_second = 1
 flag_first = 1
 flag_second = 1
+fence_number_first = 10
+fence_number_second = 10
 fence_first = 'F00'
 fence_second = 'F00'
 information_first = 'P48'
@@ -20,26 +22,23 @@ information_second = 'P40'
 def button_clicked(self):
 
     global colour_fence
-    global colour_first
-    global colour_second
-    global step_first
-    global step_second
-    global flag_first
-    global flag_second
-    global fence_first
-    global fence_second
-    global information_first
-    global information_second
+    global colour_first, colour_second
+    global step_first, step_second
+    global flag_first, flag_second
+    global fence_number_first, fence_number_second
+    global fence_first, fence_second
+    global information_first, information_second
     information_self = self.widget['text'][0:3]
 
     if step_first == step_second:
         if flag_first == 1:
-            if information_self[0] == 'H' or information_self[0] == 'V':
+            if (information_self[0] == 'H' or information_self[0] == 'V') and fence_number_first > 0:
                 fence_first = self.widget['text']
                 flag_first = 2
                 self.widget['text'] = str(step_first)
                 self.widget['bg'] = colour_fence
                 self.widget['fg'] = colour_fence
+                fence_number_first -= 1
             elif information_self[0] == 'P':
                 if (information_self != information_second and
                     abs(int(information_self[1]) - int(information_first[1])) <= 1 and
@@ -69,12 +68,13 @@ def button_clicked(self):
 
     elif step_first != step_second:
         if flag_second == 1:
-            if information_self[0] == 'H' or information_self[0] == 'V':
+            if (information_self[0] == 'H' or information_self[0] == 'V') and fence_number_second > 0:
                 fence_second = self.widget['text']
                 flag_second = 2
                 self.widget['text'] = str(step_second)
                 self.widget['bg'] = colour_fence
                 self.widget['fg'] = colour_fence
+                fence_number_second -= 1
             elif information_self[0] == 'P':
                 if (information_self != information_first and
                     abs(int(information_self[1]) - int(information_second[1])) <= 1 and
