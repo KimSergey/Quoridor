@@ -47,7 +47,7 @@ def button_clicked(self):
                     information_first = information_self
                     self.widget['text'] = information_self + ' ' + str(step_first)
                     self.widget['bg'] = colour_first
-                    self.widget['fg'] = colour_first
+                    self.widget['fg'] = 'white'
                     self.widget['activebackground'] = colour_first
                     step_first += 1
         elif flag_first == 2:
@@ -83,7 +83,7 @@ def button_clicked(self):
                     information_second = information_self
                     self.widget['text'] = information_self + ' ' + str(step_first)
                     self.widget['bg'] = colour_second
-                    self.widget['fg'] = colour_second
+                    self.widget['fg'] = 'white'
                     self.widget['activebackground'] = colour_second
                     step_second += 1
         elif flag_second == 2:
@@ -108,7 +108,7 @@ root.title("Quoridor")
 root.wm_geometry("+%d+%d" % (0, 0))
 can = Canvas(root, width=root.winfo_screenwidth()-18, height=root.winfo_screenheight())
 can.create_rectangle(445-1, 85-1, 1115-1, 755-1, fill="black")
-can.create_rectangle(450-1, 90-1, 1110-1, 750-1, fill="#AA0A0A")
+can.create_rectangle(450-1, 90-1, 1110-1, 750-1, fill="brown")
 for i in range(9):
     for j in range(9):
         colour = colour_square_defolt
