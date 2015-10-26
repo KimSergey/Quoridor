@@ -3,7 +3,9 @@ from tkinter import *
 
 X1, Y1, X2, Y2 = 4, 8, 4, 0
 picture_background_direction = 'floor.png'
-picture_button_direction = 'floor.png'
+picture_button_direction = 'button.png'
+picture_first_direction = 'first_player.png'
+picture_second_direction = 'second_player.png'
 colour_square_defolt = '#A00A0A'
 colour_fence_defolt = '#800808'
 colour_fence = '#00A0A0'
@@ -22,11 +24,7 @@ information_second = 'P40'
 
 
 matrix = [[None for i in range(9)] for j in range(9)]
-def finding(text):
-    for string in matrix:
-        for element in string:
-            if element['text'][1:3] == text[1:3]:
-                return element
+
 def button_clicked(self):
 
     global colour_fence
@@ -47,15 +45,17 @@ def button_clicked(self):
                 self.widget['bg'] = colour_fence
                 self.widget['fg'] = colour_fence
                 fence_number_first -= 1
-            elif information_sel0f[0] == 'P':
+            elif information_self[0] == 'P':
                 if (information_self != information_second and
                     abs(int(information_self[1]) - int(information_first[1])) <= 1 and
                     abs(int(information_self[2]) - int(information_first[2])) <= 1 and
                     abs(int(information_self[1]) - int(information_first[1])) != abs(int(information_self[2]) - int(information_first[2]))):
+                    matrix[int(information_first[1])][int(information_first[2])]['image'] = picture_button
                     information_first = information_self
                     self.widget['text'] = information_self + ' ' + str(step_first)
                     self.widget['bg'] = colour_first
                     self.widget['fg'] = 'white'
+                    self.widget['image'] = picture_first
                     self.widget['activebackground'] = colour_first
                     step_first += 1
         elif flag_first == 2:
@@ -88,10 +88,12 @@ def button_clicked(self):
                     abs(int(information_self[1]) - int(information_second[1])) <= 1 and
                     abs(int(information_self[2]) - int(information_second[2])) <= 1 and
                     abs(int(information_self[1]) - int(information_second[1])) != abs(int(information_self[2]) - int(information_second[2]))):
+                    matrix[int(information_second[1])][int(information_second[2])]['image'] = picture_button
                     information_second = information_self
                     self.widget['text'] = information_self + ' ' + str(step_second)
                     self.widget['bg'] = colour_second
                     self.widget['fg'] = 'white'
+                    self.widget['image'] = picture_second
                     self.widget['activebackground'] = colour_second
                     step_second += 1
         elif flag_second == 2:
@@ -116,7 +118,9 @@ root.title("Quoridor")
 root.wm_geometry("+%d+%d" % (0, 0))
 can = Canvas(root, width=root.winfo_screenwidth(), height=root.winfo_screenheight())
 picture_background = PhotoImage(file=picture_background_direction)
-picture_button = PhotoImage(file=picture_background_direction)
+picture_button = PhotoImage(file=picture_button_direction)
+picture_first = PhotoImage(file=picture_first_direction)
+picture_second = PhotoImage(file=picture_second_direction)
 Label(root, image=picture_background).pack()
 for i in range(9):
     for j in range(9):
@@ -128,6 +132,7 @@ for i in range(9):
         matrix[i][j] = Button(root,
                               bg=colour,
                               fg=colour,
+                              image=picture_button,
                               text='P'+str(i)+str(j))
         matrix[i][j].place(x=470+75*i,
                            y=120+75*j,
