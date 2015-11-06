@@ -5,17 +5,17 @@ X1, Y1, X2, Y2 = 4, 8, 4, 0
 
 
 picture_background_direction = 'floor.png'
-picture_button_defolt_direction = 'button_defolt.png'
+picture_button_default_direction = 'button_default.png'
 picture_button_first_direction = 'button_first.png'
 picture_button_second_direction = 'button_second.png'
-picture_fence_horizontal_defolt_direction = 'fence_horizontal_defolt.png'
+picture_fence_horizontal_default_direction = 'fence_horizontal_default.png'
 picture_fence_horizontal_direction = 'fence_horizontal.png'
-picture_fence_vertical_defolt_direction = 'fence_vertical_defolt.png'
+picture_fence_vertical_default_direction = 'fence_vertical_default.png'
 picture_fence_vertical_direction = 'fence_vertical.png'
 
 
-colour_square_defolt = '#A00A0A'
-colour_fence_defolt = '#800808'
+colour_square_default = '#A00A0A'
+colour_fence_default = '#800808'
 
 
 step = 1
@@ -145,7 +145,7 @@ def do_step(statistics_self, statistics_other, step, self):
                         legal = 1
 
             if legal == 1:
-                matrix[int(statistics_self['text'][1])][int(statistics_self['text'][2])]['image'] = picture_button_defolt
+                matrix[int(statistics_self['text'][1])][int(statistics_self['text'][2])]['image'] = picture_button_default
                 statistics_self['text'] = self.widget['text']
                 self.widget['text'] = self.widget['text']
                 self.widget['image'] = statistics_self['picture']
@@ -188,12 +188,12 @@ can = Canvas(root, width=root.winfo_screenwidth(), height=root.winfo_screenheigh
 
 
 picture_background = PhotoImage(file=picture_background_direction)
-picture_button_defolt = PhotoImage(file=picture_button_defolt_direction)
+picture_button_default = PhotoImage(file=picture_button_default_direction)
 picture_button_first = PhotoImage(file=picture_button_first_direction)
 picture_button_second = PhotoImage(file=picture_button_second_direction)
-picture_fence_horizontal_defolt = PhotoImage(file=picture_fence_horizontal_defolt_direction)
+picture_fence_horizontal_default = PhotoImage(file=picture_fence_horizontal_default_direction)
 picture_fence_horizontal = PhotoImage(file=picture_fence_horizontal_direction)
-picture_fence_vertical_defolt = PhotoImage(file=picture_fence_vertical_defolt_direction)
+picture_fence_vertical_default = PhotoImage(file=picture_fence_vertical_default_direction)
 picture_fence_vertical = PhotoImage(file=picture_fence_vertical_direction)
 statistics_first = {'flag': flag_first,
                     'fence_number': fence_number_first,
@@ -213,14 +213,14 @@ fences_horizontal = [[None for i in range(10)] for j in range(9)]
 fences_vertical = [[None for i in range(9)] for j in range(10)]
 for i in range(9):
     for j in range(9):
-        picture = picture_button_defolt
+        picture = picture_button_default
         if i == X1 and j == Y1:
             picture = picture_button_first
         if i == X2 and j == Y2:
             picture = picture_button_second
         matrix[i][j] = Button(root,
-                              bg=colour_square_defolt,
-                              fg=colour_square_defolt,
+                              bg=colour_square_default,
+                              fg=colour_square_default,
                               image=picture,
                               text='P'+str(i)+str(j))
         matrix[i][j].place(x=470+75*i,
@@ -229,14 +229,14 @@ for i in range(9):
                            height=60)
 for i in range(9):
     for j in range(10):
-        picture = picture_fence_horizontal_defolt
+        picture = picture_fence_horizontal_default
         name = 'H'
         if j == 0 or j == 9:
             picture = picture_fence_horizontal
             name = 'F'
         fences_horizontal[i][j] = Button(root,
-                                         bg=colour_fence_defolt,
-                                         fg=colour_fence_defolt,
+                                         bg=colour_fence_default,
+                                         fg=colour_fence_default,
                                          image=picture,
                                          text=name+str(i)+str(j))
         fences_horizontal[i][j].place(x=470+75*i,
@@ -245,14 +245,14 @@ for i in range(9):
                                       height=15)
 for i in range(10):
     for j in range(9):
-        picture = picture_fence_vertical_defolt
+        picture = picture_fence_vertical_default
         name = 'V'
         if i == 0 or i == 9:
             picture = picture_fence_vertical
             name = 'F'
         fences_vertical[i][j] = Button(root,
-                                       bg=colour_fence_defolt,
-                                       fg=colour_fence_defolt,
+                                       bg=colour_fence_default,
+                                       fg=colour_fence_default,
                                        image=picture,
                                        text=name+str(i)+str(j))
         fences_vertical[i][j].place(x=455+75*i,
