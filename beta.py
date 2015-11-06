@@ -37,54 +37,82 @@ fences_vertical = [[None for i in range(9)] for j in range(9)]
 def do_step(statistics_self, statistics_other, step, self):
 
     if statistics_self['flag'] == 1:
-        if (self.widget['text'][0:3][0] == 'H' or self.widget['text'][0:3][0] == 'V') and statistics_self['fence_number'] > 0:
+        if (self.widget['text'][0] == 'H' or self.widget['text'][0] == 'V') and statistics_self['fence_number'] > 0:
             statistics_self['fence'] = self.widget['text']
             statistics_self['flag'] = 2
-            if self.widget['text'][0:3][0] == 'H':
+            if self.widget['text'][0] == 'H':
                 self.widget['image'] = picture_fence_horizontal
-            if self.widget['text'][0:3][0] == 'V':
+            if self.widget['text'][0] == 'V':
                 self.widget['image'] = picture_fence_vertical
-            self.widget['text'] = str(step)
+            self.widget['text'] = 'F' + self.widget['text'][1] + self.widget['text'][2]
             statistics_self['fence_number'] -= 1
-        elif self.widget['text'][0:3][0] == 'P':
+        elif self.widget['text'][0] == 'P':
             legal = 0
-            if (int(self.widget['text'][0:3][1]) - int(statistics_self['information'][1]) == -1 and
-                int(self.widget['text'][0:3][2]) - int(statistics_self['information'][2]) == 0):
+            if (int(self.widget['text'][1]) - int(statistics_self['text'][1]) == -1 and
+                int(self.widget['text'][2]) - int(statistics_self['text'][2]) == 0):
                 if fences_vertical[int(self.widget['text'][0:3][1])][int(self.widget['text'][0:3][2])]['text'][0] == 'V':
                     legal = 1
-            if (int(self.widget['text'][0:3][1]) - int(statistics_self['information'][1]) == 1 and
-                int(self.widget['text'][0:3][2]) - int(statistics_self['information'][2]) == 0):
-                if fences_vertical[int(statistics_self['information'][1])][int(statistics_self['information'][2])]['text'][0] == 'V':
+            if (int(self.widget['text'][1]) - int(statistics_self['text'][1]) == 1 and
+                int(self.widget['text'][2]) - int(statistics_self['text'][2]) == 0):
+                if fences_vertical[int(statistics_self['text'][1])][int(statistics_self['text'][2])]['text'][0] == 'V':
                     legal = 1
-            if (int(self.widget['text'][0:3][1]) - int(statistics_self['information'][1]) == 0 and
-                int(self.widget['text'][0:3][2]) - int(statistics_self['information'][2]) == -1):
+            if (int(self.widget['text'][1]) - int(statistics_self['text'][1]) == 0 and
+                int(self.widget['text'][2]) - int(statistics_self['text'][2]) == -1):
                 if fences_horizontal[int(self.widget['text'][0:3][1])][int(self.widget['text'][0:3][2])]['text'][0] == 'H':
                     legal = 1
-            if (int(self.widget['text'][0:3][1]) - int(statistics_self['information'][1]) == 0 and
-                int(self.widget['text'][0:3][2]) - int(statistics_self['information'][2]) == 1):
-                if fences_horizontal[int(statistics_self['information'][1])][int(statistics_self['information'][2])]['text'][0] == 'H':
+            if (int(self.widget['text'][1]) - int(statistics_self['text'][1]) == 0 and
+                int(self.widget['text'][2]) - int(statistics_self['text'][2]) == 1):
+                if fences_horizontal[int(statistics_self['text'][1])][int(statistics_self['text'][2])]['text'][0] == 'H':
                     legal = 1
+            if (int(self.widget['text'][1]) - int(statistics_self['text'][1]) == -2 and
+                int(self.widget['text'][2]) - int(statistics_self['text'][2]) == 0):
+                if (int(self.widget['text'][1]) - int(statistics_other['text'][1]) == -1 and
+                    int(self.widget['text'][2]) - int(statistics_other['text'][2]) == 0):
+                    if (fences_vertical[int(statistics_other['text'][1])][int(statistics_other['text'][2])]['text'][0] == 'V' and
+                        fences_vertical[int(self.widget['text'][1])][int(self.widget['text'][2])]['text'][0] == 'V'):
+                        legal = 1
+            if (int(self.widget['text'][1]) - int(statistics_self['text'][1]) == 2 and
+                int(self.widget['text'][2]) - int(statistics_self['text'][2]) == 0):
+                if (int(self.widget['text'][1]) - int(statistics_other['text'][1]) == 1 and
+                    int(self.widget['text'][2]) - int(statistics_other['text'][2]) == 0):
+                    if (fences_vertical[int(statistics_self['text'][1])][int(statistics_self['text'][2])]['text'][0] == 'V' and
+                        fences_vertical[int(statistics_other['text'][1])][int(statistics_other['text'][2])]['text'][0] == 'V'):
+                        legal = 1
+            if (int(self.widget['text'][1]) - int(statistics_self['text'][1]) == 0 and
+                int(self.widget['text'][2]) - int(statistics_self['text'][2]) == -2):
+                if (int(self.widget['text'][1]) - int(statistics_other['text'][1]) == 0 and
+                    int(self.widget['text'][2]) - int(statistics_other['text'][2]) == -1):
+                    if (fences_horizontal[int(statistics_other['text'][1])][int(statistics_other['text'][2])]['text'][0] == 'H' and
+                        fences_horizontal[int(self.widget['text'][1])][int(self.widget['text'][2])]['text'][0] == 'H'):
+                        legal = 1
+            if (int(self.widget['text'][1]) - int(statistics_self['text'][1]) == 0 and
+                int(self.widget['text'][2]) - int(statistics_self['text'][2]) == 2):
+                if (int(self.widget['text'][1]) - int(statistics_other['text'][1]) == 0 and
+                    int(self.widget['text'][2]) - int(statistics_other['text'][2]) == 1):
+                    if (fences_horizontal[int(statistics_self['text'][1])][int(statistics_self['text'][2])]['text'][0] == 'H' and
+                        fences_horizontal[int(statistics_other['text'][1])][int(statistics_other['text'][2])]['text'][0] == 'H'):
+                        legal = 1
             if legal == 1:
-                matrix[int(statistics_self['information'][1])][int(statistics_self['information'][2])]['image'] = picture_button_defolt
-                statistics_self['information'] = self.widget['text'][0:3]
-                self.widget['text'] = self.widget['text'][0:3] + ' ' + str(step)
+                matrix[int(statistics_self['text'][1])][int(statistics_self['text'][2])]['image'] = picture_button_defolt
+                statistics_self['text'] = self.widget['text']
+                self.widget['text'] = self.widget['text']
                 self.widget['image'] = statistics_self['picture']
                 step += 1
     elif statistics_self['flag'] == 2:
-        if self.widget['text'][0:3][0] == statistics_self['fence'][0] == 'H':
-            if (abs(int(self.widget['text'][0:3][1]) - int(statistics_self['fence'][1])) == 1 and
-                abs(int(self.widget['text'][0:3][2]) - int(statistics_self['fence'][2])) == 0):
-                if self.widget['text'][0:3][0] == 'H':
+        if self.widget['text'][0] == statistics_self['fence'][0] == 'H':
+            if (abs(int(self.widget['text'][1]) - int(statistics_self['fence'][1])) == 1 and
+                abs(int(self.widget['text'][2]) - int(statistics_self['fence'][2])) == 0):
+                if self.widget['text'][0] == 'H':
                     self.widget['image'] = picture_fence_horizontal
-                    self.widget['text'] = str(step)
+                    self.widget['text'] = 'F' + self.widget['text'][1] + self.widget['text'][2]
                     statistics_self['flag'] = 1
                     step += 1
-        elif self.widget['text'][0:3][0] == statistics_self['fence'][0] == 'V':
-            if (abs(int(self.widget['text'][0:3][2]) - int(statistics_self['fence'][2])) == 1 and
-                abs(int(self.widget['text'][0:3][1]) - int(statistics_self['fence'][1])) == 0):
-                if self.widget['text'][0:3][0] == 'V':
+        elif self.widget['text'][0] == statistics_self['fence'][0] == 'V':
+            if (abs(int(self.widget['text'][2]) - int(statistics_self['fence'][2])) == 1 and
+                abs(int(self.widget['text'][1]) - int(statistics_self['fence'][1])) == 0):
+                if self.widget['text'][0] == 'V':
                     self.widget['image'] = picture_fence_vertical
-                    self.widget['text'] = str(step)
+                    self.widget['text'] = 'F' + self.widget['text'][1] + self.widget['text'][2]
                     statistics_self['flag'] = 1
                     step += 1
 
@@ -121,12 +149,12 @@ picture_fence_vertical = PhotoImage(file=picture_fence_vertical_direction)
 statistics_first = {'flag': flag_first,
                     'fence_number': fence_number_first,
                     'fence': fence_first,
-                    'information': information_first,
+                    'text': information_first,
                     'picture': picture_button_first}
 statistics_second = {'flag': flag_second,
                      'fence_number': fence_number_second,
                      'fence': fence_second,
-                     'information': information_second,
+                     'text': information_second,
                      'picture': picture_button_second}
 
 
@@ -142,7 +170,7 @@ for i in range(9):
                               bg=colour_square_defolt,
                               fg=colour_square_defolt,
                               image=picture,
-                              text='P'+str(i)+str(j))  
+                              text='P'+str(i)+str(j))
         matrix[i][j].place(x=470+75*i,
                            y=120+75*j,
                            width=60,
@@ -150,27 +178,31 @@ for i in range(9):
 for i in range(9):
     for j in range(-1, 9):
         picture = picture_fence_horizontal_defolt
+        name = 'H'
         if j == -1 or j == 8:
             picture = picture_fence_horizontal
+            name = 'F'
         fences_horizontal[i][j] = Button(root,
                                          bg=colour_fence_defolt,
                                          fg=colour_fence_defolt,
                                          image=picture,
-                                         text='H'+str(i)+str(j))
+                                         text=name+str(i)+str(j))
         fences_horizontal[i][j].place(x=470+75*i,
                                       y=180+75*j,
                                       width=60,
-                                      height=15)        
+                                      height=15)
 for i in range(-1, 9):
     for j in range(9):
         picture = picture_fence_vertical_defolt
+        name = 'V'
         if i == -1 or i == 8:
             picture = picture_fence_vertical
+            name = 'F'
         fences_vertical[i][j] = Button(root,
                                        bg=colour_fence_defolt,
                                        fg=colour_fence_defolt,
                                        image=picture,
-                                       text='V'+str(i)+str(j))
+                                       text=name+str(i)+str(j))
         fences_vertical[i][j].place(x=530+75*i,
                                     y=120+75*j,
                                     width=15,
