@@ -143,7 +143,6 @@ def do_step(statistics_self, statistics_other, step, self):
                         fences_vertical[int(statistics_self['text'][1])][int(statistics_self['text'][2])]['text'][0] == 'V' and
                         fences_horizontal[int(statistics_self['text'][1])-1][int(statistics_self['text'][2])+1]['text'][0] == 'H'):
                         legal = 1
-
             if legal == 1:
                 matrix[int(statistics_self['text'][1])][int(statistics_self['text'][2])]['image'] = picture_button_default
                 statistics_self['text'] = self.widget['text']
