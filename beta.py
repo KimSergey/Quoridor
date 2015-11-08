@@ -32,8 +32,8 @@ fence_number_first = 10
 fence_number_second = 10
 fence_first = None
 fence_second = None
-text_first = 'P48'
-text_second = 'P40'
+text_first = NAME_CELL + str(X1) + str(Y1)
+text_second = NAME_CELL + str(X2) + str(Y2)
 
 
 def step(info_self, info_other, step_number, self):
