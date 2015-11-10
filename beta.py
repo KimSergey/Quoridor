@@ -152,7 +152,7 @@ def step(info_self, info_other, step_number, self):
                         fences_horizontal[int(info_self['text'][1])-1][int(info_self['text'][2])+1]['text'][0] == NAME_HORIZONTAL):
                         legal = 1
             if legal == 1:
-                matrix[int(info_self['text'][1])][int(info_self['text'][2])]['image'] = picture_button_default
+                cells[int(info_self['text'][1])][int(info_self['text'][2])]['image'] = picture_button_default
                 info_self['text'] = info_click['text']
                 info_click['text'] = info_click['text']
                 info_click['image'] = info_self['picture']
@@ -210,10 +210,10 @@ info_second = {'flag': flag_second,
                'fence_number': fence_number_second,
                'picture': picture_button_second,
                'text': text_second}
+
+
 Label(root, image=picture_background).pack()
-
-
-matrix = [[None for i in range(TABLE_WIDTH)] for j in range(TABLE_LENGTH)]
+cells = [[None for i in range(TABLE_WIDTH)] for j in range(TABLE_LENGTH)]
 fences_horizontal = [[None for i in range(TABLE_WIDTH + 1)] for j in range(TABLE_LENGTH)]
 fences_vertical = [[None for i in range(TABLE_WIDTH)] for j in range(TABLE_LENGTH + 1)]
 for i in range(TABLE_LENGTH):
@@ -223,11 +223,11 @@ for i in range(TABLE_LENGTH):
             picture = picture_button_first
         if i == X2 and j == Y2:
             picture = picture_button_second
-        matrix[i][j] = Button(root,
+        cells[i][j] = Button(root,
                               bg=colour_default,
                               image=picture,
                               text=NAME_CELL+str(i)+str(j))
-        matrix[i][j].place(x=470+(CELL_WIDTH+FENCE_WIDTH)*i,
+        cells[i][j].place(x=470+(CELL_WIDTH+FENCE_WIDTH)*i,
                            y=120+(CELL_LENGTH+FENCE_WIDTH)*j,
                            width=CELL_WIDTH,
                            height=CELL_LENGTH)
